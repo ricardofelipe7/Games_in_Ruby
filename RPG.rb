@@ -28,7 +28,7 @@ class Heroi
     def initialize
         self.energia = 30
         self.vivo = true
-        numero_de_mortos = 0
+        self.numero_de_mortos = 0
     end
 
     def bater(alvo)
@@ -49,9 +49,23 @@ end
 
 
 odin = Heroi.new
-fishman = Monstro.new
 puts odin.inspect
-puts fishman.inspect
 
-odin.bater(fishman)
-puts fishman.inspect
+while odin.esta_vivo?
+    fishman = Monstro.new
+    puts fishman.inspect
+
+    while fishman.esta_vivo? && odin.esta_vivo?
+        odin.bater(fishman)
+        puts "A energia do fishman e #{fishman.energia}" if fishman.esta_vivo?
+        
+        if fishman.esta_vivo?
+            fishman.bater(odin)
+            print "A sua energia e #{odin.energia}"
+            puts ''
+        end
+    end
+end
+
+puts 'Odin esta morto!'
+puts ""
